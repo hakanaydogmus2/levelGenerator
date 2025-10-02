@@ -1,15 +1,19 @@
-# Phaser Vite Template
+# Level Generator
 
-This is a Phaser 3 project template that uses Vite for bundling. It supports hot-reloading for quick development workflow and includes scripts to generate production-ready builds.
+A Phaser 3 word puzzle level generator that creates crossword-style puzzles. Built with Vite for fast development and production builds.
 
-**[This Template is also available as a TypeScript version.](https://github.com/phaserjs/template-vite-ts)**
+## Features
 
-### Versions
+- **Crossword-style puzzle generation**: Automatically places words in intersecting patterns
+- **Interactive grid system**: 8x8 grid for word placement
+- **Word shuffling**: Randomizes word placement for variety
+- **Refresh functionality**: Generate new puzzles on demand
+- **Responsive design**: Built with modern web technologies
 
-This template has been updated for:
+### Technologies Used
 
-- [Phaser 3.90.0](https://github.com/phaserjs/phaser)
-- [Vite 6.3.1](https://github.com/vitejs/vite)
+- [Phaser 3.90.0](https://github.com/phaserjs/phaser) - Game framework
+- [Vite 6.3.1](https://github.com/vitejs/vite) - Build tool and dev server
 
 ![screenshot](screenshot.png)
 
@@ -28,27 +32,39 @@ This template has been updated for:
 | `npm run build-nolog` | Create a production build in the `dist` folder without sending anonymous data (see "About log.js" below) |
 
 
-## Writing Code
+## Getting Started
 
-After cloning the repo, run `npm install` from your project directory. Then, you can start the local development server by running `npm run dev`.
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start the development server: `npm run dev`
+4. Open your browser to `http://localhost:8080`
 
-The local development server runs on `http://localhost:8080` by default. Please see the Vite documentation if you wish to change this, or add SSL support.
+The development server supports hot-reloading, so changes to the code will automatically refresh the browser.
 
-Once the server is running you can edit any of the files in the `src` folder. Vite will automatically recompile your code and then reload the browser.
+## How It Works
 
-## Template Project Structure
+The level generator creates word puzzle levels by:
 
-We have provided a default project structure to get you started. This is as follows:
+1. **Word Processing**: Takes a list of words (currently: SEAT, EAT, TEA, SET, EAST)
+2. **Grid Placement**: Uses an 8x8 grid system with 64px cell size
+3. **Intersection Logic**: Finds optimal intersections between words
+4. **Dynamic Generation**: Creates new puzzles each time the refresh button is clicked
+
+## Project Structure
 
 | Path                         | Description                                                |
 |------------------------------|------------------------------------------------------------|
-| `index.html`                 | A basic HTML page to contain the game.                     |
-| `public/assets`              | Game sprites, audio, etc. Served directly at runtime.      |
-| `public/style.css`           | Global layout styles.                                      |
-| `src/main.js`                | Application bootstrap.                                     |
-| `src/game`                   | Folder containing the game code.                           |
-| `src/game/main.js`           | Game entry point: configures and starts the game.          |
-| `src/game/scenes`            | Folder with all Phaser game scenes.                        | 
+| `index.html`                 | Main HTML entry point                                     |
+| `public/assets`              | Static assets (images, sounds, etc.)                      |
+| `public/style.css`           | Global styles                                              |
+| `src/main.js`                | Application entry point                                    |
+| `src/game/main.js`           | Game configuration and initialization                      |
+| `src/game/scenes/`           | Phaser game scenes                                         |
+| `src/game/scenes/Game.js`    | Main game scene with level generation logic               |
+| `src/game/scenes/Boot.js`    | Initial boot scene                                         |
+| `src/game/scenes/Preloader.js` | Asset loading scene                                     |
+| `src/game/scenes/MainMenu.js`| Main menu interface                                        |
+| `src/game/scenes/GameOver.js`| Game over screen                                          | 
 
 ## Handling Assets
 
@@ -83,11 +99,33 @@ After you run the `npm run build` command, your code will be built into a single
 
 In order to deploy your game, you will need to upload *all* of the contents of the `dist` folder to a public facing web server.
 
-## Customizing the Template
+## Customization
 
-### Vite
+### Adding New Words
 
-If you want to customize your build, such as adding plugin (i.e. for loading CSS or fonts), you can modify the `vite/config.*.mjs` file for cross-project changes, or you can modify and/or create new configuration files and target them in specific npm tasks inside of `package.json`. Please see the [Vite documentation](https://vitejs.dev/) for more information.
+To add new words to the puzzle generator, modify the `words` array in `src/game/scenes/Game.js`:
+
+```js
+this.words = this.shuffleInPlace(['SEAT', 'EAT', 'TEA', 'SET', 'EAST', 'YOUR_NEW_WORD']);
+```
+
+### Adjusting Grid Size
+
+The grid dimensions can be modified by changing these properties in the Game scene:
+
+```js
+this.rows = 8;      // Number of rows
+this.cols = 8;      // Number of columns
+this.gridSize = 64; // Size of each cell in pixels
+```
+
+### Build Configuration
+
+Vite configuration files are located in the `vite/` directory:
+- `config.dev.mjs` - Development configuration
+- `config.prod.mjs` - Production configuration
+
+See the [Vite documentation](https://vitejs.dev/) for advanced customization options.
 
 ## About log.js
 
@@ -135,19 +173,16 @@ After:
 
 Either of these will stop `log.js` from running. If you do decide to do this, please could you at least join our Discord and tell us which template you're using! Or send us a quick email. Either will be super-helpful, thank you.
 
-## Join the Phaser Community!
+## Contributing
 
-We love to see what developers like you create with Phaser! It really motivates us to keep improving. So please join our community and show-off your work 😄
+Feel free to submit issues and pull requests to improve the level generator.
 
-**Visit:** The [Phaser website](https://phaser.io) and follow on [Phaser Twitter](https://twitter.com/phaser_)<br />
-**Play:** Some of the amazing games [#madewithphaser](https://twitter.com/search?q=%23madewithphaser&src=typed_query&f=live)<br />
-**Learn:** [API Docs](https://newdocs.phaser.io), [Support Forum](https://phaser.discourse.group/) and [StackOverflow](https://stackoverflow.com/questions/tagged/phaser-framework)<br />
-**Discord:** Join us on [Discord](https://discord.gg/phaser)<br />
-**Code:** 2000+ [Examples](https://labs.phaser.io)<br />
-**Read:** The [Phaser World](https://phaser.io/community/newsletter) Newsletter<br />
+## License
 
-Created by [Phaser Studio](mailto:support@phaser.io). Powered by coffee, anime, pixels and love.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-The Phaser logo and characters are &copy; 2011 - 2025 Phaser Studio Inc.
+## Resources
 
-All rights reserved.
+- [Phaser 3 Documentation](https://newdocs.phaser.io)
+- [Vite Documentation](https://vitejs.dev)
+- [Phaser Examples](https://labs.phaser.io)
