@@ -11,7 +11,7 @@ export class Game extends Scene
         this.cols = 8;
         this.offsetX = 512 - (this.cols / 2) * this.gridSize;
         this.offsetY = 384 - (this.rows / 2) * this.gridSize;
-        this.words = this.shuffleInPlace(['SEAT', 'EAT', 'TEA', 'SET', 'EAST']);
+        this.words = ['SEAT', 'EAT', 'TEA', 'SET', 'EAST'];
         this.placedWords = { }; // {words: [SEAT: {S:{x:0,y:0}, E:{x:1,y:0}, A:{x:2,y:0}, T:{x:3,y:0}}, ...]}
 
     }
@@ -46,7 +46,7 @@ export class Game extends Scene
         this.wordGroup = this.add.group();
 
         // Kelimeleri karıştır
-        this.words = this.words;
+        this.words = this.shuffleInPlace(this.words);
         this.placedWords = {};
 
         // Grid çizimi
